@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import SearchTextField
 import Alamofire
 import MapKit
 import SwiftyJSON
+import ActionKit
 
 class Place {
     var address: String?
@@ -42,7 +42,7 @@ class Place {
 
 class ViewController: UIViewController {
 
-    @IBOutlet var postCodeField: SearchTextField!
+    @IBOutlet var postCodeField: UITextField!
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var locationPin: UIImageView!
@@ -51,6 +51,8 @@ class ViewController: UIViewController {
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     
     var currentPlace: Place!
+    var suggestions : [String]?
+    var sTableView: UITableView?
     
     let color = UIColor(red: 0.0, green: (172.0/255.0), blue: (195.0/255.0), alpha: 1.0)
     
@@ -66,6 +68,7 @@ class ViewController: UIViewController {
         let lng = defaults.double(forKey: "lng")
         let location = CLLocationCoordinate2DMake(lat, lng)
         
+        self.postCodeField.delegate = self
         self.activityIndicatorView.stopAnimating()
         
         self.mapView.setCenter(location, animated: true)
@@ -73,20 +76,17 @@ class ViewController: UIViewController {
         self.mapView.showsUserLocation = true
         self.centerMapOnLocation(location: CLLocation(latitude: lat, longitude: lng))
         
-        self.postCodeField.userStoppedTypingHandler = {
-            print("user stopped Typing")
+        self.postCodeField.addControlEvent(.editingChanged) {
             if let partial = self.postCodeField.text {
                 if partial.count > 1 {
                     self.fetchPostCodes(partial: partial)
+                } else {
+                    if let _ = self.sTableView {
+                        self.sTableView?.removeFromSuperview()
+                        self.sTableView = nil
+                    }
                 }
             }
-        }
-        
-        self.postCodeField.itemSelectionHandler = { filteredResults, itemPosition in
-            let item = filteredResults[itemPosition]
-            print("Item at position \(itemPosition): \(item.title)")
-            self.postCodeField.text = item.title
-            self.fetchLocationFromPostcode(postCode: item.title)
         }
     }
     
@@ -117,10 +117,6 @@ class ViewController: UIViewController {
         pimg = pimg?.withRenderingMode(.alwaysTemplate)
         self.locationPin.image = pimg
         self.locationPin.tintColor = color
-        
-        self.postCodeField.theme.font = UIFont.systemFont(ofSize: 14)
-        self.postCodeField.theme.bgColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
-        self.postCodeField.theme.cellHeight = 50
     }
 
     @IBAction func onClickDoneButton () {
@@ -225,25 +221,29 @@ extension ViewController: MKMapViewDelegate {
 
 extension ViewController {
     func fetchPostCodes (partial: String) {
-        guard partial.count > 0 else {
+    
+        let charSet = CharacterSet.alphanumerics.inverted
+        let zip = partial.components(separatedBy: charSet).joined(separator: "")
+        print("stripped = \(zip)")
+        
+        guard zip.count > 0 else {
             print("postcode is empty")
             return
         }
         
-        self.postCodeField.showLoadingIndicator()
-        let url = "http://api.postcodes.io/postcodes/" + partial + "/autocomplete"
+        let url = "http://api.postcodes.io/postcodes/" + zip + "/autocomplete"
         Alamofire.request(url).responseJSON { response in
-            self.postCodeField.stopLoadingIndicator()
             if let json = response.result.value {
                 let mJson = JSON(json)
-                print(mJson)
                 if let status = mJson["status"].int, status == 200 {
                     if let result = mJson["result"].array {
                         var codes: [String] = []
                         result.forEach({ (code) in
                             codes.append(code.stringValue)
                         })
-                        self.postCodeField.filterStrings(codes)
+                        print("for \(zip) : \(codes)")
+                        self.suggestions = codes
+                        self.showSuggestions()
                     }
                 }
             }
@@ -257,13 +257,12 @@ extension ViewController {
             return
         }
         
-        guard let code = postCode.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            print("invalid url")
-            return
-        }
+        let charSet = CharacterSet.alphanumerics.inverted
+        let zip = postCode.components(separatedBy: charSet).joined(separator: "")
+        print("stripped = \(zip)")
         
         self.activityIndicatorView.startAnimating()
-        let url = "http://api.postcodes.io/postcodes/" + code
+        let url = "http://api.postcodes.io/postcodes/" + zip
         Alamofire.request(url).responseJSON { response in
             print(response as Any)
             self.activityIndicatorView.stopAnimating()
@@ -279,6 +278,112 @@ extension ViewController {
                     }
                 }
             }
+        }
+    }
+    
+    func validatePostCode (postCode: String, onComplete: @escaping (Bool) -> ()) {
+        guard postCode.count > 0 else {
+            print("postcode is empty")
+            onComplete(false)
+            return
+        }
+        
+        let charSet = CharacterSet.alphanumerics.inverted
+        let zip = postCode.components(separatedBy: charSet).joined(separator: "")
+        print("stripped = \(zip)")
+        
+        self.activityIndicatorView.startAnimating()
+        let url = "http://api.postcodes.io/postcodes/" + zip + "/validate"
+        Alamofire.request(url).responseJSON { response in
+            print(response as Any)
+            self.activityIndicatorView.stopAnimating()
+            if let json = response.result.value {
+                let mJson = JSON(json)
+                print(mJson)
+                if let status = mJson["status"].int, status == 200 {
+                    onComplete(mJson["result"].boolValue)
+                } else {
+                    onComplete(false)
+                }
+            } else {
+                onComplete(false)
+            }
+        }
+    }
+    
+    func showSuggestions () {
+        
+        if let _ = self.sTableView {
+            self.sTableView!.removeFromSuperview()
+            self.sTableView = nil
+        }
+        
+        let rect = CGRect(x: self.containerView.frame.origin.x + 10, y: self.containerView.frame.origin.y + 50, width: self.postCodeField.frame.size.width, height: 400.0)
+        self.sTableView = UITableView(frame: rect, style: .plain)
+        self.sTableView?.dataSource = self
+        self.sTableView?.delegate = self
+        self.sTableView?.tableFooterView = UIView(frame: .zero)
+        self.view.addSubview(self.sTableView!)
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let postCode = self.postCodeField.text, postCode.count > 0 {
+            self.validatePostCode(postCode: postCode) { (valid) in
+                print("valid post code = \(valid)")
+                if valid == true {
+                    self.fetchLocationFromPostcode(postCode: postCode)
+                } else {
+                    let controller = UIAlertController(title: "Not a valid UK postcode", message: "Please enter a valid UK postcode", preferredStyle: .alert)
+                    controller.addAction(UIAlertAction(title: "Close", style: .destructive, handler: nil))
+                    self.present(controller, animated: true, completion: nil)
+                }
+            }
+        }
+        if let _ = self.sTableView {
+            self.sTableView!.removeFromSuperview()
+            self.sTableView = nil
+        }
+        self.postCodeField.resignFirstResponder()
+        return true
+    }
+}
+
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let suggestions = self.suggestions {
+            return suggestions.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell: UITableViewCell!
+        if let c = tableView.dequeueReusableCell(withIdentifier: "cell") {
+            cell = c
+        } else {
+            cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        }
+        cell.textLabel?.text = self.suggestions?[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let suggestions = self.suggestions {
+            self.postCodeField.text = suggestions[indexPath.row]
+            if let _ = self.sTableView {
+                self.sTableView!.removeFromSuperview()
+                self.sTableView = nil
+            }
+            self.postCodeField.resignFirstResponder()
+            self.fetchLocationFromPostcode(postCode: suggestions[indexPath.row])
         }
     }
 }

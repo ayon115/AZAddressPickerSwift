@@ -6,10 +6,10 @@ target 'LocationPicker' do
   use_frameworks!
 
   # Pods for LocationPicker
-
-pod 'SearchTextField'
+  
 pod 'Alamofire'
 pod 'IQKeyboardManagerSwift'
 pod 'SwiftyJSON', '~> 4.0'
+pod 'ActionKit'
 
 end

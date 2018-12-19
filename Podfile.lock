@@ -1,28 +1,28 @@
 PODS:
+  - ActionKit (2.4.0)
   - Alamofire (4.7.3)
   - IQKeyboardManagerSwift (6.2.0)
-  - SearchTextField (1.2.2)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
+  - ActionKit
   - Alamofire
   - IQKeyboardManagerSwift
-  - SearchTextField
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ActionKit
     - Alamofire
     - IQKeyboardManagerSwift
-    - SearchTextField
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  ActionKit: 1e1b696b6e1a54e7999d8c0f1d7176b2fee2fa4d
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
-  SearchTextField: a0992739d4b05dcbb40fb3a5cc6526bd991bdd23
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: b37965264c629526d779a9db29afa29d0c3771be
+PODFILE CHECKSUM: f900b3b0a94c8209275e894351db467fc7084684
 
 COCOAPODS: 1.5.3

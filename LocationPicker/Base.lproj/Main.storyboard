@@ -26,7 +26,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zTj-sX-IMk">
                                 <rect key="frame" x="20" y="84" width="335" height="120"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type Your Postcode Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dja-el-yEZ" customClass="SearchTextField" customModule="SearchTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type Your Postcode Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dja-el-yEZ">
                                         <rect key="frame" x="10" y="10" width="315" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="9tR-oV-TT2"/>
