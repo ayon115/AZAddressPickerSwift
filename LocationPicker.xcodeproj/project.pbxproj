@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0861C409991877D5FB75D59F /* Pods_LocationPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79DAB0480F9A5D030DDDFFC0 /* Pods_LocationPicker.framework */; };
 		5B5AD82321C8EDF30048BE1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5AD82221C8EDF30048BE1B /* AppDelegate.swift */; };
 		5B5AD82521C8EDF30048BE1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5AD82421C8EDF30048BE1B /* ViewController.swift */; };
 		5B5AD82821C8EDF30048BE1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5AD82621C8EDF30048BE1B /* Main.storyboard */; };
@@ -22,6 +23,9 @@
 		5B5AD82921C8EDF60048BE1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B5AD82C21C8EDF60048BE1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B5AD82E21C8EDF60048BE1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79DAB0480F9A5D030DDDFFC0 /* Pods_LocationPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocationPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95DF8CEB1E91B3781BFB057D /* Pods-LocationPicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationPicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocationPicker/Pods-LocationPicker.release.xcconfig"; sourceTree = "<group>"; };
+		DF0ABEDD5CFC405EE2BD8336 /* Pods-LocationPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationPicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocationPicker/Pods-LocationPicker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0861C409991877D5FB75D59F /* Pods_LocationPicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0751FF28B69330FA94F439D4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DF0ABEDD5CFC405EE2BD8336 /* Pods-LocationPicker.debug.xcconfig */,
+				95DF8CEB1E91B3781BFB057D /* Pods-LocationPicker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		5B5AD81621C8EDF20048BE1B = {
 			isa = PBXGroup;
 			children = (
 				5B5AD82121C8EDF30048BE1B /* LocationPicker */,
 				5B5AD82021C8EDF30048BE1B /* Products */,
+				0751FF28B69330FA94F439D4 /* Pods */,
+				F02A877698A5378621F8E2B0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = LocationPicker;
 			sourceTree = "<group>";
 		};
+		F02A877698A5378621F8E2B0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				79DAB0480F9A5D030DDDFFC0 /* Pods_LocationPicker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B5AD83121C8EDF60048BE1B /* Build configuration list for PBXNativeTarget "LocationPicker" */;
 			buildPhases = (
+				CCBFF9DD7CC49E519DF8E59C /* [CP] Check Pods Manifest.lock */,
 				5B5AD81B21C8EDF30048BE1B /* Sources */,
 				5B5AD81C21C8EDF30048BE1B /* Frameworks */,
 				5B5AD81D21C8EDF30048BE1B /* Resources */,
+				D48FC2D5E1E4B3AC440C545C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +155,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CCBFF9DD7CC49E519DF8E59C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LocationPicker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D48FC2D5E1E4B3AC440C545C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LocationPicker/Pods-LocationPicker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LocationPicker/Pods-LocationPicker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5B5AD81B21C8EDF30048BE1B /* Sources */ = {
@@ -280,6 +351,7 @@
 		};
 		5B5AD83221C8EDF60048BE1B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF0ABEDD5CFC405EE2BD8336 /* Pods-LocationPicker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +370,7 @@
 		};
 		5B5AD83321C8EDF60048BE1B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95DF8CEB1E91B3781BFB057D /* Pods-LocationPicker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
