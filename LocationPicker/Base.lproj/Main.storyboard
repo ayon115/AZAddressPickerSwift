@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TbH-5M-VTM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TbH-5M-VTM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,9 +41,17 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="kes-Ti-Pjn">
+                                        <rect key="frame" x="155" y="75" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="XXv-Ml-YOu"/>
+                                            <constraint firstAttribute="width" constant="25" id="vZR-1e-3nl"/>
+                                        </constraints>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.67450980390000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="kes-Ti-Pjn" secondAttribute="bottom" constant="20" id="FjR-NI-tIe"/>
                                     <constraint firstItem="ooT-Ay-4G7" firstAttribute="leading" secondItem="zTj-sX-IMk" secondAttribute="leading" constant="12" id="GDj-4d-qgO"/>
                                     <constraint firstAttribute="height" constant="120" id="GTj-rF-Qxx"/>
                                     <constraint firstAttribute="bottom" secondItem="ooT-Ay-4G7" secondAttribute="bottom" constant="10" id="J5G-hu-GqD"/>
@@ -51,6 +59,7 @@
                                     <constraint firstAttribute="trailing" secondItem="dja-el-yEZ" secondAttribute="trailing" constant="10" id="K8w-kZ-XZd"/>
                                     <constraint firstAttribute="trailing" secondItem="ooT-Ay-4G7" secondAttribute="trailing" constant="12" id="R4t-zN-QW8"/>
                                     <constraint firstItem="ooT-Ay-4G7" firstAttribute="top" secondItem="dja-el-yEZ" secondAttribute="bottom" constant="10" id="RaA-YC-TqP"/>
+                                    <constraint firstItem="kes-Ti-Pjn" firstAttribute="centerX" secondItem="zTj-sX-IMk" secondAttribute="centerX" id="bql-zV-NKE"/>
                                     <constraint firstAttribute="trailing" secondItem="ooT-Ay-4G7" secondAttribute="trailing" constant="12" id="lW9-Jn-ZJO"/>
                                     <constraint firstItem="ooT-Ay-4G7" firstAttribute="top" secondItem="dja-el-yEZ" secondAttribute="bottom" constant="10" id="vfB-i5-mO0"/>
                                     <constraint firstItem="ooT-Ay-4G7" firstAttribute="leading" secondItem="zTj-sX-IMk" secondAttribute="leading" constant="12" id="wJR-FD-ugd"/>
@@ -59,7 +68,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_location_on_black_36pt" translatesAutoresizingMaskIntoConstraints="NO" id="Qe6-kh-9mY">
-                                <rect key="frame" x="169.5" y="315.5" width="36" height="36"/>
+                                <rect key="frame" x="169.5" y="329.5" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="94j-PQ-IIm"/>
                                     <constraint firstAttribute="width" constant="36" id="Md7-aH-ZGq"/>
@@ -80,10 +89,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vhe-TV-tDN" secondAttribute="bottom" constant="20" id="0fL-Bw-ptt"/>
+                            <constraint firstItem="Qe6-kh-9mY" firstAttribute="centerY" secondItem="EJg-mg-fAc" secondAttribute="centerY" constant="-18" id="3PV-Vj-53f"/>
                             <constraint firstItem="zTj-sX-IMk" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="9xL-Sm-0aE"/>
                             <constraint firstItem="EJg-mg-fAc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EAd-08-I6i"/>
-                            <constraint firstItem="Qe6-kh-9mY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JTk-rm-fdY"/>
-                            <constraint firstItem="Qe6-kh-9mY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="TE0-nv-Cnp"/>
+                            <constraint firstItem="Qe6-kh-9mY" firstAttribute="centerX" secondItem="EJg-mg-fAc" secondAttribute="centerX" id="Ps2-QF-ofM"/>
                             <constraint firstItem="vhe-TV-tDN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-20" id="djh-98-uBJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EJg-mg-fAc" secondAttribute="bottom" id="mnw-q5-ZWT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EJg-mg-fAc" secondAttribute="trailing" id="odR-Oj-jMq"/>
@@ -101,6 +110,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="kes-Ti-Pjn" id="879-vL-DT9"/>
                         <outlet property="addressLabel" destination="ooT-Ay-4G7" id="akW-vU-egT"/>
                         <outlet property="containerView" destination="zTj-sX-IMk" id="sRE-gW-QTZ"/>
                         <outlet property="locationPin" destination="Qe6-kh-9mY" id="zWJ-bj-AD3"/>
@@ -133,7 +143,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="baseline_location_on_black_36pt" width="36" height="36"/>
-        <image name="baseline_my_location_black_24pt" width="24" height="24"/>
+        <image name="baseline_location_on_black_36pt" width="64" height="64"/>
+        <image name="baseline_my_location_black_24pt" width="48" height="48"/>
     </resources>
 </document>
